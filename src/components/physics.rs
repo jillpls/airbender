@@ -1,15 +1,15 @@
-use::amethyst::ecs::{Component, DenseVecStorage};
+use ::amethyst::ecs::{Component, DenseVecStorage};
 
 pub struct Physics {
-    gravity : f32,
-    deacceleration: Option<f32>
+    gravity: f32,
+    deacceleration: Option<f32>,
 }
 
 impl Default for Physics {
     fn default() -> Self {
         Physics {
             gravity: 1.0,
-            deacceleration: None
+            deacceleration: None,
         }
     }
 }
