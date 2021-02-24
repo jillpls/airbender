@@ -1,3 +1,8 @@
+/*
+ *   Copyright (c) 2021 Jill Please <jillplspls@gmail.com>
+ *   All rights reserved.
+ */
+
 #[derive(Clone, Copy)]
 pub struct DisplayDimensions {
     pub width: f32,

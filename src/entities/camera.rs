@@ -1,5 +1,9 @@
+/*
+ *   Copyright (c) 2021 Jill Please <jillplspls@gmail.com>
+ *   All rights reserved.
+ */
+
 use crate::resources::display::DisplayDimensions;
-use amethyst::core::math::Vector3;
 use amethyst::core::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::Camera;
