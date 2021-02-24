@@ -1,8 +1,8 @@
+use crate::resources::display::DisplayDimensions;
+use amethyst::core::math::Vector3;
+use amethyst::core::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::Camera;
-use amethyst::core::Transform;
-use amethyst::core::math::Vector3;
-use crate::resources::display::DisplayDimensions;
 
 pub fn init_camera(world: &mut World) {
     let dimensions = {
@@ -14,7 +14,7 @@ pub fn init_camera(world: &mut World) {
     };
 
     let mut transform = Transform::default();
-    transform.set_translation_xyz(dimensions.width * 0.5, dimensions.height * 0.5, 0.0);
+    transform.set_translation_xyz(dimensions.width * 0.5, dimensions.height * 0.5, 1.0);
 
     world
         .create_entity()
