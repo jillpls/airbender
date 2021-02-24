@@ -1,9 +1,14 @@
+/*
+ *   Copyright (c) 2021 Jill Please <jillplspls@gmail.com>
+ *   All rights reserved.
+ */
+
 use std::collections::HashMap;
 
 use amethyst::assets::{AssetStorage, Loader};
 use amethyst::prelude::*;
-use amethyst::renderer::{ImageFormat, SpriteSheet, SpriteSheetFormat, Texture};
 use amethyst::renderer::sprite::SpriteSheetHandle;
+use amethyst::renderer::{ImageFormat, SpriteSheet, SpriteSheetFormat, Texture};
 
 #[derive(Clone, Eq, Hash, PartialEq)]
 pub enum SpriteSheetType {
@@ -39,7 +44,11 @@ impl SpriteSheetMap {
     }
 }
 
-pub fn load_sprite_sheet(world: &mut World, key: SpriteSheetType, path: &str) -> amethyst::Result<SpriteSheetHandle> {
+pub fn load_sprite_sheet(
+    world: &mut World,
+    key: SpriteSheetType,
+    path: &str,
+) -> amethyst::Result<SpriteSheetHandle> {
     let fetched = world.try_fetch_mut::<SpriteSheetMap>();
     if let Some(mut map) = fetched {
         let img_path = path.to_owned() + ".png";
@@ -51,12 +60,7 @@ pub fn load_sprite_sheet(world: &mut World, key: SpriteSheetType, path: &str) ->
         let texture_handle = {
             let loader = world.read_resource::<Loader>();
             let texture_storage = world.read_resource::<AssetStorage<Texture>>();
-            loader.load(
-                &img_path,
-                ImageFormat::default(),
-                (),
-                &texture_storage,
-            )
+            loader.load(&img_path, ImageFormat::default(), (), &texture_storage)
         };
 
         let loader = world.read_resource::<Loader>();
@@ -68,9 +72,12 @@ pub fn load_sprite_sheet(world: &mut World, key: SpriteSheetType, path: &str) ->
             &sprite_sheet_store,
         );
 
+        map.insert(key, handle.clone())?;
 
         Ok(handle)
     } else {
-        Err(amethyst::Error::from_string("SpriteSheetMap SpriteSheetMap resource not in world"))
+        Err(amethyst::Error::from_string(
+            "SpriteSheetMap SpriteSheetMap resource not in world",
+        ))
     }
 }
