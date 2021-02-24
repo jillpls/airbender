@@ -1,10 +1,15 @@
+/*
+ *   Copyright (c) 2021 Jill Please <jillplspls@gmail.com>
+ *   All rights reserved.
+ */
+
 use crate::entities::camera::init_camera;
 use crate::resources::sprites::*;
+use amethyst::core::math::Vector3;
 use amethyst::core::Transform;
 use amethyst::prelude::*;
-use amethyst::utils::application_root_dir;
 use amethyst::renderer::SpriteRender;
-use amethyst::core::math::Vector3;
+use amethyst::utils::application_root_dir;
 use std::borrow::Borrow;
 
 #[derive(Default)]
@@ -18,9 +23,12 @@ impl SimpleState for InitState {
 
         // sprite_test, TODO: Delete later
 
-        let handle = load_sprite_sheet(world,
-                          SpriteSheetType::Custom(String::from("test")),
-                          "sprites/example/character_run").unwrap();
+        let handle = load_sprite_sheet(
+            world,
+            SpriteSheetType::Custom(String::from("test")),
+            "sprites/example/character_run",
+        )
+        .unwrap();
 
         let sprite_render = SpriteRender::new(handle, 1);
 
@@ -30,7 +38,8 @@ impl SimpleState for InitState {
         transform.set_translation_xyz(400.0, 400.0, 0.0);
         transform.set_scale(Vector3::new(4.0, 4.0, 1.0));
 
-        world.create_entity()
+        world
+            .create_entity()
             .with(sprite_render)
             .with(transform)
             .build();

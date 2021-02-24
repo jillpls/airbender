@@ -1,3 +1,8 @@
+/*
+ *   Copyright (c) 2021 Jill Please <jillplspls@gmail.com>
+ *   All rights reserved.
+ */
+
 use ::amethyst::core::{
     math::{Vector2, Vector3},
     Transform,

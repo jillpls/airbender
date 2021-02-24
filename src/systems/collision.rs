@@ -1,3 +1,8 @@
+/*
+ *   Copyright (c) 2021 Jill Please <jillplspls@gmail.com>
+ *   All rights reserved.
+ */
+
 use amethyst::derive::SystemDesc;
 use amethyst::ecs::{Join, Read, ReadStorage, System, SystemData, World, WriteStorage};
 
