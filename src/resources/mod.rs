@@ -3,5 +3,6 @@
  *   All rights reserved.
  */
 
-pub mod display;
+#[macro_use]
 pub mod sprites;
+pub mod display;

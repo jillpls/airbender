@@ -3,6 +3,27 @@
  *   All rights reserved.
  */
 
+
+#[macro_export]
+macro_rules! import_sheet {
+    ($path:expr,$resources:expr,$progress_counter:expr) => {
+        {
+            let loader = ($resources).get_mut::<DefaultLoader>().expect("oof1");
+
+            let texture = loader.load(&($path.to_owned() + ".png")); 
+            let sprites = loader.load(&($path.to_owned() + ".ron")); 
+
+            let sheet : Handle<SpriteSheet> = loader.load_from_data(
+                SpriteSheet {texture, sprites},
+                &mut $progress_counter,
+                &$resources.get().expect("oof2")
+            );
+
+            sheet
+        }        
+    };
+}
+
 // use std::collections::HashMap;
 
 // use amethyst::assets::{AssetStorage, DefaultLoader, ProgressCounter};
