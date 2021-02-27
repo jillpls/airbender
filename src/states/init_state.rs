@@ -5,7 +5,6 @@
 
 use crate::entities::camera::init_camera;
 use crate::components::animation::AnimationId;
-use crate::resources::sprites::*;
 use amethyst::assets::ProgressCounter;
 use amethyst::renderer::SpriteRender;
 use amethyst::animation::{AnimationCommand, EndControl, AnimationSet, get_animation_set};

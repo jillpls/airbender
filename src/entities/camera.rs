@@ -3,7 +3,6 @@
  *   All rights reserved.
  */
 
-use crate::resources::display::DisplayDimensions;
 use amethyst::core::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::Camera;
@@ -25,9 +24,12 @@ pub fn init_camera(world: &mut World, resources: &mut Resources) {
     // let mut transform = Transform::default();
     // transform.set_translation_xyz(dimensions.width * 0.5, dimensions.height * 0.5, 1.0);
 
+    let (width, height) = {
+        let dim = resources.get::<ScreenDimensions>().unwrap();
+        (dim.width(), dim.height())
+    };
+
     let mut camera_transform = Transform::default();
-    let width = 500.0;
-    let height = 500.0;
     camera_transform.set_translation_xyz(width * 0.5, height * 0.5, 1.0);
 
     world.push(

@@ -3,13 +3,11 @@
  *   All rights reserved.
  */
 
-use std::collections::HashMap;
+// use std::collections::HashMap;
 
-use amethyst::assets::{AssetStorage, DefaultLoader, ProgressCounter};
-use amethyst::prelude::*;
-use amethyst::renderer::{ImageFormat, SpriteSheet, Texture};
-
-use crate::utils::LoadingAsset;
+// use amethyst::assets::{AssetStorage, DefaultLoader, ProgressCounter};
+// use amethyst::prelude::*;
+// use amethyst::renderer::{ImageFormat, SpriteSheet, Texture};
 
 // #[derive(Clone, Eq, Hash, PartialEq)]
 // pub enum SpriteSheetType {

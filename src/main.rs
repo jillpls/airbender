@@ -18,7 +18,6 @@ use amethyst::utils::application_root_dir;
 
 use crate::states::*;
 use crate::components::animation::AnimationId;
-use crate::systems::animation::DefaultAnimation;
 
 mod components;
 mod entities;
@@ -51,7 +50,7 @@ fn main() -> amethyst::Result<()> {
         );
         // .with_bundle(AnimationBundle::<AnimationId, SpriteRender>::new("animation_control", "sampler_interpolation"))?
         // .with(DefaultAnimation {}, "default_animation", &[]);
-    let mut game = Application::new(assets_dir, InitState::default(), dispatcher)?;
+    let game = Application::new(assets_dir, InitState::default(), dispatcher)?;
     game.run();
     Ok(())
 }
