@@ -1,10 +1,14 @@
-Grid((
-    // Width of the texture used by the sprite sheet
-    texture_width: 126,
-    // Height of the texture used by the sprite sheet
-    texture_height: 108,
-    // Specifies the number of columns in the sprite sheet
-    columns: 1,
-    // Specifies the number of sprites in the spritesheet.
-    sprite_count: Some(4)
-))
+
+{
+    "04c60333-c790-4586-aa76-086b19167a04":
+    Grid((
+        // Width of the texture used by the sprite sheet
+        texture_width: 126,
+        // Height of the texture used by the sprite sheet
+        texture_height: 108,
+        // Specifies the number of columns in the sprite sheet
+        columns: 1,
+        // Specifies the number of sprites in the spritesheet.
+        sprite_count: Some(4)
+    ))
+}

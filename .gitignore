@@ -3,3 +3,5 @@
 *.iml
 **/*.rs.bk
 .vscode/
+*.meta
+.assets_db/

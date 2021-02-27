@@ -4,10 +4,12 @@
  */
 
 use amethyst::core::transform::TransformBundle;
+use amethyst::assets::LoaderBundle;
 use amethyst::prelude::*;
 use amethyst::renderer::{
     SpriteRender,
     plugins::{RenderFlat2D, RenderToWindow},
+    rendy::hal::command::ClearColor,
     types::DefaultBackend,
     RenderingBundle,
 };
@@ -31,19 +33,25 @@ fn main() -> amethyst::Result<()> {
     let app_root = application_root_dir()?;
     let display_config_path = app_root.join("config").join("display.ron");
     let assets_dir = app_root.join("assets");
-    let game_data = GameDataBuilder::default()
-        .with_bundle(
+
+    let mut dispatcher = DispatcherBuilder::default();
+    dispatcher
+        .add_bundle(LoaderBundle)
+        .add_bundle(AnimationBundle::<AnimationId, SpriteRender>::default())
+        .add_bundle(TransformBundle::default())
+        .flush()
+        .add_bundle(
             RenderingBundle::<DefaultBackend>::new()
                 .with_plugin(
                     RenderToWindow::from_config_path(display_config_path)?
-                        .with_clear([0.5, 0.5, 0.5]),
+                        .with_clear( ClearColor { float32 : [0.5, 0.5, 0.5, 1.0]
+                        }),
                 )
                 .with_plugin(RenderFlat2D::default()),
-        )?
-        .with_bundle(AnimationBundle::<AnimationId, SpriteRender>::new("animation_control", "sampler_interpolation"))?
-        .with_bundle(TransformBundle::new())?
-        .with(DefaultAnimation {}, "default_animation", &[]);
-    let mut game = Application::new(assets_dir, InitState::default(), game_data)?;
+        );
+        // .with_bundle(AnimationBundle::<AnimationId, SpriteRender>::new("animation_control", "sampler_interpolation"))?
+        // .with(DefaultAnimation {}, "default_animation", &[]);
+    let mut game = Application::new(assets_dir, InitState::default(), dispatcher)?;
     game.run();
     Ok(())
 }
