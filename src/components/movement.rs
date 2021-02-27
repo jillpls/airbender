@@ -4,7 +4,7 @@
  */
 
 use ::amethyst::core::{
-    math::{Vector2, Vector3},
+    math::{Vector2},
     Transform,
 };
 use ::amethyst::ecs::{Component, DenseVecStorage};

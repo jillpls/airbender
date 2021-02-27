@@ -33,11 +33,18 @@ impl CollisionRectangle {
     }
 }
 
+/// Component for movable objects. Will check for collision on update while active.
 #[derive(Default)]
 pub struct Collider {
-    collided: bool,
+    collisions: Option<Vec<CollisionEvent>>,
+    active: bool
 }
 
 impl Component for Collider {
     type Storage = DenseVecStorage<Self>;
+}
+
+pub enum CollisionEvent {
+    Static(u32, u32),
+    Dynamic(u32, u32)
 }

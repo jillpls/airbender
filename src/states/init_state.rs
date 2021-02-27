@@ -5,15 +5,13 @@
 
 use crate::entities::camera::init_camera;
 use crate::resources::sprites::*;
-use amethyst::core::math::Vector3;
-use amethyst::core::Transform;
+use amethyst::assets::ProgressCounter;
 use amethyst::prelude::*;
-use amethyst::renderer::SpriteRender;
-use amethyst::utils::application_root_dir;
-use std::borrow::Borrow;
 
 #[derive(Default)]
-pub struct InitState;
+pub struct InitState {
+    pub progress_counter : Option<ProgressCounter>
+}
 
 impl SimpleState for InitState {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
@@ -23,31 +21,45 @@ impl SimpleState for InitState {
 
         // sprite_test, TODO: Delete later
 
-        let handle = load_sprite_sheet(
-            world,
-            SpriteSheetType::Custom(String::from("test")),
-            "sprites/example/character_run",
-        )
-        .unwrap();
+        // let handle = load_sprite_sheet(
+        //     world,
+        //     SpriteSheetType::Custom(String::from("test")),
+        //     "sprites/example/character_run",
+        // )
+        // .unwrap();
 
-        let sprite_render = SpriteRender::new(handle, 1);
 
-        println!("{:?}", sprite_render);
 
-        let mut transform = Transform::default();
-        transform.set_translation_xyz(400.0, 400.0, 0.0);
-        transform.set_scale(Vector3::new(4.0, 4.0, 1.0));
+        // let sprite_render = SpriteRender::new(handle, 1);
 
-        world
-            .create_entity()
-            .with(sprite_render)
-            .with(transform)
-            .build();
+
+        // let mut transform = Transform::default();
+        // transform.set_translation_xyz(400.0, 400.0, 0.0);
+        // transform.set_scale(Vector3::new(4.0, 4.0, 1.0));
+
+        // world
+        //     .create_entity()
+        //     .with(sprite_render)
+        //     .with(transform)
+        //     .build();
 
         // /sprite_test
+
+        self.progress_counter = Some(
+            ProgressCounter::new()
+        );
+
+        
+        self.progress_counter = crate::components::animation::load_animation(world, "sprites/example/character_run", self.progress_counter.take()).ok();
     }
 
     fn update(&mut self, data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
+        if let Some(p) = &self.progress_counter {
+            if p.is_complete() {
+
+            }
+            
+        }
         Trans::None
     }
 }
