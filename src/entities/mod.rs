@@ -4,3 +4,5 @@
  */
 
 pub mod camera;
+mod player;
+pub use player::PlayerState;
