@@ -9,21 +9,6 @@ use amethyst::renderer::Camera;
 use amethyst::window::ScreenDimensions;
 
 pub fn init_camera(world: &mut World, resources: &mut Resources) {
-    // let dimensions = {
-    //     if let Some(fetched) = world.try_fetch::<DisplayDimensions>() {
-    //         *fetched
-    //     } else {
-    //         DisplayDimensions::default()
-    //     }
-    // };
-
-
-
-    // let dimensions = DisplayDimensions::default();
-
-    // let mut transform = Transform::default();
-    // transform.set_translation_xyz(dimensions.width * 0.5, dimensions.height * 0.5, 1.0);
-
     let (width, height) = {
         let dim = resources.get::<ScreenDimensions>().unwrap();
         (dim.width(), dim.height())
