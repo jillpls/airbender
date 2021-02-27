@@ -21,6 +21,7 @@ use crate::components::animation::AnimationId;
 
 #[macro_use]
 mod resources;
+#[macro_use]
 mod components;
 mod entities;
 mod states;
