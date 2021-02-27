@@ -3,7 +3,4 @@
  *   All rights reserved.
  */
 
-pub mod collision;
-pub mod movement;
-pub mod physics;
 pub mod animation;
