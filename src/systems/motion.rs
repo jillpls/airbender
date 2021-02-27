@@ -5,7 +5,7 @@
 
 use amethyst::core::Transform;
 use amethyst::derive::SystemDesc;
-use amethyst::ecs::{Join, Read, ReadStorage, System, SystemData, World, WriteStorage};
+use amethyst::ecs::{Join, ReadStorage, System, SystemData, WriteStorage};
 
 use crate::components::collision::Collider;
 use crate::components::movement::Motion;

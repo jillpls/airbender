@@ -5,16 +5,19 @@
 
 use std::collections::HashMap;
 
-use amethyst::assets::{AssetStorage, Loader};
+use amethyst::assets::{AssetStorage, Loader, ProgressCounter};
 use amethyst::prelude::*;
 use amethyst::renderer::sprite::SpriteSheetHandle;
 use amethyst::renderer::{ImageFormat, SpriteSheet, SpriteSheetFormat, Texture};
+
+use crate::utils::LoadingAsset;
 
 #[derive(Clone, Eq, Hash, PartialEq)]
 pub enum SpriteSheetType {
     Background(String),
     Character(String),
     Custom(String),
+    Animation(u32)
 }
 
 #[derive(Default)]
@@ -48,7 +51,8 @@ pub fn load_sprite_sheet(
     world: &mut World,
     key: SpriteSheetType,
     path: &str,
-) -> amethyst::Result<SpriteSheetHandle> {
+    progress: Option<ProgressCounter>
+) -> amethyst::Result<LoadingAsset<SpriteSheet>> {
     let fetched = world.try_fetch_mut::<SpriteSheetMap>();
     if let Some(mut map) = fetched {
         let img_path = path.to_owned() + ".png";
@@ -57,24 +61,26 @@ pub fn load_sprite_sheet(
         println!("Image path: {:?}", img_path);
         println!("Ron path: {:?}", ron_path);
 
+        let mut progress_counter = progress.unwrap_or(ProgressCounter::new());
+
         let texture_handle = {
             let loader = world.read_resource::<Loader>();
             let texture_storage = world.read_resource::<AssetStorage<Texture>>();
-            loader.load(&img_path, ImageFormat::default(), (), &texture_storage)
+            loader.load(&img_path, ImageFormat::default(), &mut progress_counter, &texture_storage)
         };
 
         let loader = world.read_resource::<Loader>();
-        let sprite_sheet_store = world.read_resource::<AssetStorage<SpriteSheet>>();
+        let mut sprite_sheet_storage = world.read_resource::<AssetStorage<SpriteSheet>>();
         let handle = loader.load(
             &ron_path, // Here we load the associated ron file
             SpriteSheetFormat(texture_handle),
-            (),
-            &sprite_sheet_store,
+            &mut progress_counter,
+            &mut sprite_sheet_storage,
         );
 
         map.insert(key, handle.clone())?;
 
-        Ok(handle)
+        Ok(LoadingAsset::<SpriteSheet>::new(progress_counter, handle))
     } else {
         Err(amethyst::Error::from_string(
             "SpriteSheetMap SpriteSheetMap resource not in world",
