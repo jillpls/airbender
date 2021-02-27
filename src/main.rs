@@ -18,6 +18,7 @@ use amethyst::utils::application_root_dir;
 
 use crate::states::*;
 use crate::components::animation::AnimationId;
+use crate::systems::animation::PlayerAnimation;
 
 #[macro_use]
 mod resources;
@@ -41,6 +42,7 @@ fn main() -> amethyst::Result<()> {
         .add_bundle(AnimationBundle::<AnimationId, SpriteRender>::default())
         .add_bundle(TransformBundle::default())
         .flush()
+        .add_system(PlayerAnimation)
         .add_bundle(
             RenderingBundle::<DefaultBackend>::new()
                 .with_plugin(

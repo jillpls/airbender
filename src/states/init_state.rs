@@ -4,8 +4,11 @@
  */
 
 use crate::components::animation::AnimationId;
-use crate::entities::camera::init_camera;
-use amethyst::animation::{get_animation_set, AnimationCommand, AnimationSet, EndControl};
+use crate::entities::{
+    PlayerState,
+    camera::init_camera
+};
+
 use amethyst::assets::Handle;
 use amethyst::assets::ProgressCounter;
 use amethyst::core::Transform;
@@ -39,40 +42,12 @@ impl SimpleState for InitState {
             let mut transform = Transform::default();
             transform.set_translation_xyz(50.0, 50.0, 0.0);
             let world = data.world;
-            world.push((animation_set, SpriteRender::new(sheet,0), transform));
+            world.push((animation_set, SpriteRender::new(sheet, 0), transform, PlayerState::default()));
             init_camera(world, resources);
         }
     }
 
-    fn update(&mut self, data: &mut StateData<'_, GameData>) -> SimpleTrans {
-        let mut query = <(Entity, Read<AnimationSet<AnimationId, SpriteRender>>)>::query();
-        let mut buffer = CommandBuffer::new(data.world);
-
-        if let Some(ref progress_counter) = &self.progress_counter {
-            if progress_counter.is_complete() {
-                let (query_world, mut subworld) = data.world.split_for_query(&query);
-                for (entity, animation_set) in query.iter(&query_world) {
-                    if let Some(control_set) =
-                        get_animation_set(&mut subworld, &mut buffer, *entity)
-                    {
-                        println!("{:?}", control_set);
-                        if control_set.is_empty() {
-                            control_set.add_animation(
-                                AnimationId::Idle,
-                                &animation_set.get(&AnimationId::Idle).unwrap(),
-                                EndControl::Loop(None),
-                                1.0,
-                                AnimationCommand::Start,
-                            );
-                            self.progress_counter = None;
-                            println!("{:?}", control_set);
-                        }
-                    }
-                }
-            }
-        }
-
-        buffer.flush(data.world);
+    fn update(&mut self, _data: &mut StateData<'_, GameData>) -> SimpleTrans {
         Trans::None
     }
 }
