@@ -19,9 +19,10 @@ use amethyst::utils::application_root_dir;
 use crate::states::*;
 use crate::components::animation::AnimationId;
 
+#[macro_use]
+mod resources;
 mod components;
 mod entities;
-mod resources;
 mod states;
 mod systems;
 mod utils;
