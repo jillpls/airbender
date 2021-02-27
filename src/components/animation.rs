@@ -5,10 +5,9 @@
 
 use amethyst::animation::{Sampler, SpriteRenderPrimitive, InterpolationFunction, Animation, AnimationSet};
 use amethyst::renderer::{SpriteRender, SpriteSheet};
-use amethyst::assets::{ProgressCounter, AssetStorage, Handle, DefaultLoader, Loader};
+use amethyst::assets::{ProgressCounter, Handle, DefaultLoader, Loader};
 use amethyst::prelude::*;
 use amethyst::core::Transform;
-use amethyst::core::math::Vector3;
 use itertools_num::{linspace};
 
 #[derive(Eq, PartialEq, Debug, Copy, Clone, Hash)]
@@ -27,22 +26,12 @@ impl Default for AnimationId {
     }
 }
 
-
-pub fn load_animations(world: &mut World, paths: Vec<&str>, progress_counter : &mut ProgressCounter) {
-
-    unimplemented!();
-    // for p in paths {
-    //     load_animation(world, p, progress_counter);
-    // }
-
-}
-
 pub fn load_animation(path : &str, data: &mut StateData<'_, GameData>, progress_counter : Option<ProgressCounter>) -> ProgressCounter {
     let StateData {
         world, resources, ..
     } = data;
 
-    let mut progress_counter = progress_counter.unwrap_or(ProgressCounter::default());
+    let mut progress_counter = progress_counter.unwrap_or_default();
 
     {
         let loader = resources.get_mut::<DefaultLoader>().expect("oof1");
