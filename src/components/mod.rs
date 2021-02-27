@@ -3,4 +3,5 @@
  *   All rights reserved.
  */
 
+#[macro_use]
 pub mod animation;

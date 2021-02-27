@@ -3,36 +3,38 @@
  *   All rights reserved.
  */
 
-use amethyst::animation::{
-    Animation, AnimationSet, InterpolationFunction, Sampler, SpriteRenderPrimitive,
-};
-use amethyst::assets::{DefaultLoader, Handle, Loader, ProgressCounter};
-use amethyst::core::Transform;
-use amethyst::prelude::*;
-use amethyst::renderer::{SpriteRender, SpriteSheet};
-use itertools_num::linspace;
+macro_rules! generate_output {
+    ($count: expr) => {{
+        let mut output = Vec::<amethyst::animation::SpriteRenderPrimitive>::new();
+        for i in 0..($count) {
+            output.push(amethyst::animation::SpriteRenderPrimitive::SpriteIndex(i));
+        }
+        output
+    }};
+}
 
 macro_rules! load_animation {
-    ($resources:expr,$progress_counter:expr) => {{
-        let loader = ($resources).get_mut::<DefaultLoader>().expect("oof1");
+    ($resources:expr,$progress_counter:expr,$length:expr) => {{
+        let loader = ($resources).get_mut::<amethyst::assets::DefaultLoader>().expect("oof1");
 
-        let animation_length = 4; // TODO: not all animations have length 4
+        let input: Vec<f32> = itertools_num::linspace(0.0, 1.0, $length + 1).collect();
+        let output: Vec<amethyst::animation::SpriteRenderPrimitive> = generate_output!($length);
 
-        let input: Vec<f32> = linspace(0.0, 1.0, animation_length + 1).collect();
-        let output: Vec<SpriteRenderPrimitive> = generate_output(animation_length);
-
-        let animations: Handle<Sampler<SpriteRenderPrimitive>> = loader.load_from_data(
-            Sampler::<SpriteRenderPrimitive> {
+        let animations: amethyst::assets::Handle<amethyst::animation::Sampler<amethyst::animation::SpriteRenderPrimitive>> = 
+            amethyst::assets::Loader::load_from_data(&*loader,
+            amethyst::animation::Sampler::<amethyst::animation::SpriteRenderPrimitive> {
                 input,
                 output,
-                function: InterpolationFunction::Step,
+                function: amethyst::animation::InterpolationFunction::Step,
             },
             &mut $progress_counter,
             &$resources.get().expect("oof3"),
         );
 
-        let animation_handle: Handle<Animation<SpriteRender>> = loader.load_from_data(
-            Animation::<SpriteRender>::new_single(
+        let animation_handle: amethyst::assets::Handle<amethyst::animation::Animation<amethyst::renderer::SpriteRender>> =
+        amethyst::assets::Loader::load_from_data(
+            &*loader,
+            amethyst::animation::Animation::<SpriteRender>::new_single(
                 0,
                 amethyst::animation::SpriteRenderChannel::SpriteIndex,
                 animations,
@@ -59,32 +61,6 @@ impl Default for AnimationId {
     fn default() -> Self {
         Self::Idle
     }
-}
-
-pub fn load_animation(
-    path: &str,
-    data: &mut StateData<'_, GameData>,
-    progress_counter: Option<ProgressCounter>,
-) -> ProgressCounter {
-    let StateData {
-        world, resources, ..
-    } = data;
-
-    let mut progress_counter = progress_counter.unwrap_or_default();
-
-    {
-        let sheet: Handle<SpriteSheet> = import_sheet!(path, resources, progress_counter);
-        let animation_handle = load_animation!(resources, progress_counter);
-
-        let mut animation_set = AnimationSet::new();
-        animation_set.insert(AnimationId::Idle, animation_handle);
-        let mut transform = Transform::default();
-        transform.set_translation_xyz(250.0, 250.0, 0.0);
-        world.push((SpriteRender::new(sheet, 0), transform, animation_set));
-        //world.push((SpriteRender::new(sheet, 0), transform));
-    }
-
-    progress_counter
 }
 
 // pub fn load_animation(world : &mut World, p : &str, progress_counter : Option<ProgressCounter>) -> amethyst::Result<ProgressCounter>{
@@ -135,11 +111,3 @@ pub fn load_animation(
 
 //     Ok(handle.progress_counter.take().unwrap_or(ProgressCounter::new()))
 // }
-
-fn generate_output(count: usize) -> Vec<SpriteRenderPrimitive> {
-    let mut output = Vec::<SpriteRenderPrimitive>::new();
-    for i in 0..(count) {
-        output.push(SpriteRenderPrimitive::SpriteIndex(i));
-    }
-    output
-}
