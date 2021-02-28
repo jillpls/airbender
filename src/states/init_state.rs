@@ -4,14 +4,12 @@
  */
 
 use crate::components::animation::AnimationId;
-use crate::entities::{
-    PlayerState,
-    camera::init_camera
-};
+use crate::entities::{camera::init_camera, PlayerState};
 
 use amethyst::assets::Handle;
 use amethyst::assets::ProgressCounter;
 use amethyst::core::Transform;
+use amethyst::window::Window;
 use amethyst::prelude::*;
 use amethyst::renderer::{SpriteRender, SpriteSheet};
 
@@ -38,16 +36,31 @@ impl SimpleState for InitState {
 
         self.progress_counter = Some(progress_counter);
 
-        {
-            let mut transform = Transform::default();
-            transform.set_translation_xyz(50.0, 50.0, 0.0);
-            let world = data.world;
-            world.push((animation_set, SpriteRender::new(sheet, 0), transform, PlayerState::default()));
-            init_camera(world, resources);
-        }
+        let mut transform = Transform::default();
+        transform.set_translation_xyz(50.0, 50.0, 0.0);
+        let world = data.world;
+        world.push((
+            animation_set,
+            SpriteRender::new(sheet, 0),
+            transform,
+            PlayerState::default(),
+        ));
+        init_camera(world, resources);
+        change_screen(resources, 1);
     }
 
     fn update(&mut self, _data: &mut StateData<'_, GameData>) -> SimpleTrans {
         Trans::None
+    }
+}
+
+fn change_screen(resources: &mut Resources, _screen: usize) {
+    // TODO: actually set the screen according to parameters.
+    if let Some(window) = resources.get_mut::<Window>() {
+        for s in window.available_monitors() {
+            if s.name().unwrap_or_default().contains("DISPLAY1") {
+                window.set_outer_position(s.position());
+            }
+        }
     }
 }
