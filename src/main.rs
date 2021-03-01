@@ -8,7 +8,7 @@ use amethyst::assets::LoaderBundle;
 use amethyst::prelude::*;
 use amethyst::renderer::{
     SpriteRender,
-    plugins::{RenderFlat2D, RenderToWindow},
+    plugins::{RenderFlat2D, RenderToWindow, RenderDebugLines},
     rendy::hal::command::ClearColor,
     types::DefaultBackend,
     RenderingBundle,
@@ -50,7 +50,8 @@ fn main() -> amethyst::Result<()> {
                         .with_clear( ClearColor { float32 : [0.5, 0.5, 0.5, 1.0]
                         }),
                 )
-                .with_plugin(RenderFlat2D::default()),
+                .with_plugin(RenderFlat2D::default())
+                .with_plugin(RenderDebugLines::default())
         );
         // .with_bundle(AnimationBundle::<AnimationId, SpriteRender>::new("animation_control", "sampler_interpolation"))?
         // .with(DefaultAnimation {}, "default_animation", &[]);

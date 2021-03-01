@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2021 Jill Please <jillplspls@gmail.com>
+ *   All rights reserved.
+ */
 use crate::components::animation::AnimationId;
 use crate::entities::PlayerState;
 use amethyst::animation::{AnimationControlSet, AnimationSet, get_animation_set, EndControl, AnimationCommand};
