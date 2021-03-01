@@ -3,6 +3,11 @@
  *   All rights reserved.
  */
 
+ use std::collections::HashMap;
+ use serde::{Serialize, Deserialize};
+ use amethyst::assets::Handle;
+ use amethyst::renderer::SpriteSheet;
+
 macro_rules! generate_output {
     ($count: expr) => {{
         let mut output = Vec::<amethyst::animation::SpriteRenderPrimitive>::new();
@@ -47,7 +52,7 @@ macro_rules! load_animation {
     }};
 }
 
-#[derive(Eq, PartialEq, Debug, Copy, Clone, Hash)]
+#[derive(Eq, PartialEq, Debug, Copy, Clone, Hash, Serialize, Deserialize)]
 #[allow(dead_code)]
 pub enum AnimationId {
     Attack(u32),
@@ -61,4 +66,10 @@ impl Default for AnimationId {
     fn default() -> Self {
         Self::Idle
     }
+}
+
+pub struct AnimationData {
+    pub current_animation : AnimationId,
+    pub sheet_map : HashMap<AnimationId, Handle<SpriteSheet>>,
+    pub current_time : Option<f32>
 }

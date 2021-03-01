@@ -42,6 +42,8 @@ version = "0.1.0"
 dependencies = [
  "amethyst",
  "itertools-num",
+ "ron",
+ "serde",
 ]
 
 [[package]]

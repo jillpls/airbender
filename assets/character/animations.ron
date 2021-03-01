@@ -1,0 +1,7 @@
+{
+    Run : (
+        "character_run.png",
+        "character_run.ron",
+        "character_run_animation.ron"
+    )
+}

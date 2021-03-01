@@ -4,5 +4,7 @@
  */
 
 #[macro_use]
+pub mod loading;
+#[macro_use]
 pub mod sprites;
 pub mod display;
