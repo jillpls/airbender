@@ -5,3 +5,4 @@
 
 #[macro_use]
 pub mod animation;
+pub mod collision;
