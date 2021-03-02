@@ -5,7 +5,7 @@
 
 use crate::components::animation::{AnimationId, AnimationData};
 use crate::components::collision::CollisionBox;
-use crate::entities::{camera::init_camera, PlayerState};
+use crate::entities::{camera::init_camera};
 use crate::resources::loading::load_animations;
 use std::collections::HashMap;
 
