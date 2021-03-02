@@ -3,69 +3,55 @@
  *   All rights reserved.
  */
 
-use crate::components::animation::{AnimationId, AnimationData};
 use crate::components::collision::CollisionBox;
 use crate::entities::{camera::init_camera};
-use crate::resources::loading::load_animations;
-use std::collections::HashMap;
+use crate::resources::loading::{load_animations, AssetsDir};
 
-use amethyst::assets::Handle;
 use amethyst::assets::ProgressCounter;
 use amethyst::core::Transform;
 use amethyst::window::Window;
 use amethyst::prelude::*;
-use amethyst::renderer::{SpriteRender, SpriteSheet};
+use amethyst::renderer::{SpriteRender};
 
-#[derive(Default)]
 pub struct InitState {
+    pub assets_dir : Option<std::path::PathBuf>,
     pub progress_counter: Option<ProgressCounter>,
+}
+
+impl InitState {
+    pub fn new(assets_dir : std::path::PathBuf) -> Self {
+        InitState {
+            assets_dir : Some(assets_dir),
+            progress_counter : None
+        }
+    }
 }
 
 impl SimpleState for InitState {
     fn on_start(&mut self, data: StateData<'_, GameData>) {
+        let StateData {
+            world,
+            resources,
+            ..
+        } = data;
+
+        resources.insert::<AssetsDir>(AssetsDir(self.assets_dir.take().unwrap_or_default()));
+
         self.progress_counter = Some(ProgressCounter::new());
         let progress_counter = self.progress_counter.take().unwrap_or_default();
-        let resources = data.resources;
 
         // let sheet = import_sheet!("sprites/example/character/character_run_debug", resources, progress_counter);
 
-        let mut progress_counter = load_animations("assets/character/animations.ron", resources, progress_counter);
-
-
-        let run_sheet = import_sheet!("character/character_run", resources, progress_counter);
-        let dash_sheet = import_sheet!("character/character_dash", resources, progress_counter);
-        
-        let anim = load_animation!(resources, progress_counter, 4);
-
-        let mut animation_set = amethyst::animation::AnimationSet::<
-            AnimationId,
-            amethyst::renderer::SpriteRender,
-        >::new();
-        animation_set.insert(AnimationId::Run, anim.clone());
-        animation_set.insert(AnimationId::Dash, anim);
-
-        let mut sheet_map : HashMap<AnimationId, Handle<SpriteSheet>> = HashMap::new();
-        sheet_map.insert(AnimationId::Run, run_sheet.clone());
-        sheet_map.insert(AnimationId::Dash, dash_sheet.clone());
-
-        let anim_data = AnimationData {
-            current_animation : AnimationId::Run,
-            sheet_map,
-            current_time : None
-        };
-
-
+        let (progress_counter, default_sheet, anim_data, anim_set) = load_animations("character/animations.ron", resources, progress_counter);
         self.progress_counter = Some(progress_counter);
 
         let mut transform = Transform::default();
         transform.set_translation_xyz(50.0, 50.0, 0.0);
-        let world = data.world;
         let collision_box = CollisionBox::new(50.0,50.0);
         let collision_box_debug = collision_box.generate_debug_lines(&transform);
         world.push((
-            animation_set,
-            SpriteRender::new(run_sheet, 0),
-            // SpriteRender::new(run_sheet, 0),
+            anim_set,
+            SpriteRender::new(default_sheet, 0),
             transform,
             anim_data,
             collision_box,
