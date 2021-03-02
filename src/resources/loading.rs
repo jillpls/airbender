@@ -8,8 +8,7 @@ use std::io::BufReader;
 use std::fs::File;
 use amethyst::prelude::*;
 use amethyst::assets::{DefaultLoader, Loader, ProgressCounter, Handle};
-use amethyst::renderer::{SpriteRender, SpriteSheet};
-use amethyst::animation::Animation;
+use amethyst::renderer::{SpriteSheet};
 use crate::components::animation::AnimationId;
 use ron::de;
 
@@ -36,6 +35,7 @@ pub fn load_animations(path: &str, resources : &mut Resources, progress_counter 
     }
 
     for (k, (png, ron, anim)) in animations_map.iter() {
+        println!("{:?}, {}, {}, {}", k, png, ron, anim);
         // TODO: DO THINGS
         // ACTUALLY LOAD THE ANIMATION DATA
         // take Handle<sheet>, by using png+ron as a key for sheet_map
@@ -59,20 +59,4 @@ pub fn load_sprite_sheet(texture_path : &str, ron_path : &str, resources : &mut 
             &resources.get().expect("oof2"),
         );
         (progress_counter, sheet)
-}
-
-pub fn load_animation(path: &str, resources : &mut Resources, progress_counter : ProgressCounter)  {
-    let mut progress_counter = progress_counter;
-    let loader = resources
-        .get_mut::<DefaultLoader>()
-        .expect("oof1");
-    
-    let texture = loader.load(&(path.to_owned() + ".png"));
-    let sprites = loader.load(&(path.to_owned() + ".ron"));
-    
-    let sheet : Handle<SpriteSheet> = loader.load_from_data(
-        amethyst::renderer::SpriteSheet { texture, sprites },
-        &mut progress_counter,
-        &resources.get().expect("oof2"),
-    );
 }

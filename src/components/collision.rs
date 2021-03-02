@@ -12,6 +12,7 @@ use amethyst::renderer::{
     palette::Srgba
 };
 
+#[allow(dead_code)] // TODO: remove
 pub struct ActiveCollider;
 
 pub struct CollisionBox {
@@ -46,6 +47,7 @@ impl CollisionBox {
     }
 }
 
+#[allow(dead_code)] // TODO: remove
 struct CollisionBoxData {
     offset : Vector2<f32>,
     span : Vector2<f32>,

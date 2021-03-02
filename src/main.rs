@@ -18,7 +18,7 @@ use amethyst::utils::application_root_dir;
 
 use crate::states::*;
 use crate::components::animation::AnimationId;
-use crate::systems::animation::{PlayerAnimation, AnimationSwitch, AnimationController};
+use crate::systems::animation::{AnimationController};
 
 #[macro_use]
 mod resources;
