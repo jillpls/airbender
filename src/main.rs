@@ -57,7 +57,7 @@ fn main() -> amethyst::Result<()> {
         );
         // .with_bundle(AnimationBundle::<AnimationId, SpriteRender>::new("animation_control", "sampler_interpolation"))?
         // .with(DefaultAnimation {}, "default_animation", &[]);
-    let game = Application::new(assets_dir, InitState::default(), dispatcher)?;
+    let game = Application::new(assets_dir.clone(), InitState::new(assets_dir), dispatcher)?;
     game.run();
     Ok(())
 }

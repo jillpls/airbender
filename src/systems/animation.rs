@@ -8,7 +8,6 @@ use amethyst::animation::{
     get_animation_set, AnimationCommand, AnimationControlSet, AnimationSet, EndControl,
 };
 use amethyst::ecs::SystemBuilder;
-use amethyst::core::timing::Time;
 use amethyst::prelude::*;
 use amethyst::renderer::SpriteRender;
 
@@ -72,24 +71,26 @@ impl System for AnimationController {
                         if let Some(control) =
                             get_animation_set(&mut remainder, &mut commands, *entity)
                         {
-                            if control.has_animation(data.current_animation) {
-                                continue;
-                            }
+                            if let Some(current_animation) = data.current_animation {
+                                if control.has_animation(current_animation) {
+                                    continue;
+                                }
 
-                            clear_control_set(control);
+                                clear_control_set(control);
 
-                            control.add_animation(
-                                data.current_animation,
-                                &set.get(&data.current_animation).unwrap(), // TODO: Seems unsafe
-                                EndControl::Loop(None), // TODO: Should be a parameter of some sort
-                                1.0,
-                                AnimationCommand::Start,
-                            );
-                            if let Some(required_sheet) =
-                                data.sheet_map.get(&data.current_animation)
-                            {
-                                println!("{:?}", data.sheet_map);
-                                sprite.sprite_sheet = required_sheet.clone();
+                                control.add_animation(
+                                    current_animation,
+                                    &set.get(&current_animation).unwrap(), // TODO: Seems unsafe
+                                    EndControl::Loop(None), // TODO: Should be a parameter of some sort
+                                    1.0,
+                                    AnimationCommand::Start,
+                                );
+
+                                if let Some(required_sheet) =
+                                    data.sheet_map.get(&current_animation)
+                                {
+                                    sprite.sprite_sheet = required_sheet.clone();
+                                }
                             }
                         }
                     }
@@ -109,32 +110,5 @@ fn clear_control_set(control: &mut AnimationControlSet<AnimationId, SpriteRender
 
     for id in ids {
         control.abort(id);
-    }
-}
-
-pub struct AnimationSwitch;
-
-impl System for AnimationSwitch {
-    fn build(self) -> Box<dyn ParallelRunnable> {
-        Box::new(
-            SystemBuilder::new("AnimationSwitch")
-                .with_query(<Write<AnimationData>>::query())
-                .read_resource::<Time>()
-                .write_component::<AnimationData>()
-                    .build(move  |_, world, time, query| {
-                        for anim_data in query.iter_mut(world) {
-                            let current_time = time.delta_seconds() + anim_data.current_time.unwrap_or(0.0);
-                            anim_data.current_time = Some(current_time);
-                            if current_time > 10.0 {
-                                if anim_data.current_animation == AnimationId::Run {
-                                    anim_data.current_animation = AnimationId::Dash;
-                                } else {
-                                    anim_data.current_animation = AnimationId::Run
-                                }
-                                anim_data.current_time = Some(0.0);
-                            }
-                        }
-                }),
-        )
     }
 }
