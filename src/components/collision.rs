@@ -16,13 +16,18 @@ use amethyst::renderer::{
 pub struct ActiveCollider;
 
 pub struct CollisionBox {
+    offset : Vector2<f32>,
+    span : Vector2<f32>,
+}
+
+pub struct SimpleCollisionBox {
     span: Vector3<f32>
 }
 
 
-impl CollisionBox {
+impl SimpleCollisionBox {
     pub fn new(width : f32, height : f32) -> Self {
-        CollisionBox {
+        SimpleCollisionBox {
             span: Vector3::new(width, height, 1.0)
         }
     }
@@ -45,10 +50,4 @@ impl CollisionBox {
 
         debug_lines
     }
-}
-
-#[allow(dead_code)] // TODO: remove
-struct CollisionBoxData {
-    offset : Vector2<f32>,
-    span : Vector2<f32>,
 }

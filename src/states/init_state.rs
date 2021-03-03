@@ -3,7 +3,7 @@
  *   All rights reserved.
  */
 
-use crate::components::collision::CollisionBox;
+use crate::components::collision::SimpleCollisionBox;
 use crate::entities::{camera::init_camera};
 use crate::resources::loading::{load_animations, AssetsDir};
 
@@ -47,7 +47,7 @@ impl SimpleState for InitState {
 
         let mut transform = Transform::default();
         transform.set_translation_xyz(50.0, 50.0, 0.0);
-        let collision_box = CollisionBox::new(50.0,50.0);
+        let collision_box = SimpleCollisionBox::new(50.0,50.0);
         let collision_box_debug = collision_box.generate_debug_lines(&transform);
         world.push((
             anim_set,
