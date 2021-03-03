@@ -136,16 +136,16 @@ fn load_animation(
     let path = format!("{}/{}", assets_dir(resources), path);
     println!("{}", path);
 
-    let mut anim_data_map = de::from_reader::<
+    let (mut anim_data_map, _) = de::from_reader::<
         BufReader<File>,
-        HashMap<
+        (HashMap<
             String,
             (
                 Vec<f32>,
                 Vec<usize>,
                 InterpolationFunction<SpriteRenderPrimitive>,
             ),
-        >,
+        >, Option<()>),
     >(BufReader::new(File::open(path).expect("yikes")))
     .unwrap();
 
