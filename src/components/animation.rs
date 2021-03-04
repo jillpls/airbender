@@ -73,3 +73,36 @@ pub struct AnimationData {
     pub current_animation : Option<AnimationId>,
     pub sheet_map : HashMap<AnimationId, Handle<SpriteSheet>>,
 }
+
+pub struct AnimationStepper {
+    pub current_animation : AnimationId,
+    pub current_frame : usize,
+}
+
+impl AnimationStepper {
+    pub fn step(&mut self, animation : &FrameControlledAnimation) -> bool {
+        self.current_frame += 1;
+        if let Some(s) = animation.get(self.current_frame) {
+            *s
+        } else {
+            self.current_frame = 0;
+            true
+        }
+    }
+} 
+
+#[derive(Debug, Clone)]
+pub struct FrameControlledAnimation {
+    id : AnimationId,
+    steps : Vec<bool>
+}
+
+impl FrameControlledAnimation {
+    pub fn id(&self) -> &AnimationId {
+        &self.id
+    }
+
+    pub fn get(&self, index : usize) -> Option<&bool> {
+        self.steps.get(index)
+    }
+}
