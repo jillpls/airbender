@@ -83,7 +83,7 @@ impl System for AnimationController {
                                     &set.get(&current_animation).unwrap(), // TODO: Seems unsafe
                                     EndControl::Loop(None), // TODO: Should be a parameter of some sort
                                     1.0,
-                                    AnimationCommand::Start,
+                                    AnimationCommand::Init,
                                 );
 
                                 if let Some(required_sheet) =
@@ -98,6 +98,28 @@ impl System for AnimationController {
         )
     }
 }
+
+pub struct SpriteAnimationController;
+
+impl System for SpriteAnimationController {
+    fn build(self) -> Box<dyn ParallelRunnable> {
+        Box::new(
+            SystemBuilder::new("SoriteAnimationController")
+                .with_query(<(
+                    Entity,
+                    Read<AnimationSet<AnimationId, SpriteRender>>,
+                )>::query())
+                .write_component::<AnimationControlSet<AnimationId, SpriteRender>>()
+                .read_component::<AnimationSet<AnimationId, SpriteRender>>()
+                .build(
+                    move |mut commands, world, _, query| {
+
+                    }
+                )
+            )
+    }
+}
+
 
 fn clear_control_set(control: &mut AnimationControlSet<AnimationId, SpriteRender>) {
     let ids = {
