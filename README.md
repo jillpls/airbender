@@ -1,2 +1,3 @@
 # airbender
-uwu
+
+WIP playground for platformers in amethyst
