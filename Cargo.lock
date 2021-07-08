@@ -70,7 +70,7 @@ dependencies = [
 [[package]]
 name = "amethyst"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_animation",
  "amethyst_assets",
@@ -102,7 +102,7 @@ dependencies = [
 [[package]]
 name = "amethyst_animation"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "alga",
  "amethyst_assets",
@@ -111,6 +111,7 @@ dependencies = [
  "amethyst_rendy",
  "derivative",
  "fnv",
+ "legion-prefab",
  "log",
  "minterpolate",
  "serde",
@@ -121,7 +122,7 @@ dependencies = [
 [[package]]
 name = "amethyst_assets"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_core",
  "amethyst_error",
@@ -154,7 +155,7 @@ dependencies = [
 [[package]]
 name = "amethyst_audio"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_assets",
  "amethyst_core",
@@ -171,7 +172,7 @@ dependencies = [
 [[package]]
 name = "amethyst_config"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "encoding_rs_io",
  "ron",
@@ -181,7 +182,7 @@ dependencies = [
 [[package]]
 name = "amethyst_controls"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_core",
  "amethyst_error",
@@ -195,7 +196,7 @@ dependencies = [
 [[package]]
 name = "amethyst_core"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_error",
  "approx 0.4.0",
@@ -203,6 +204,7 @@ dependencies = [
  "fern",
  "getset",
  "legion",
+ "legion-prefab",
  "log",
  "nalgebra",
  "num-traits 0.2.14",
@@ -218,7 +220,7 @@ dependencies = [
 [[package]]
 name = "amethyst_derive"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "glob",
  "proc-macro2 1.0.24",
@@ -230,7 +232,7 @@ dependencies = [
 [[package]]
 name = "amethyst_error"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "backtrace",
 ]
@@ -238,7 +240,7 @@ dependencies = [
 [[package]]
 name = "amethyst_input"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_config",
  "amethyst_core",
@@ -254,7 +256,7 @@ dependencies = [
 [[package]]
 name = "amethyst_rendy"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_assets",
  "amethyst_config",
@@ -267,8 +269,10 @@ dependencies = [
  "fnv",
  "genmesh",
  "glsl-layout",
+ "gltf",
  "indexmap",
  "lazy_static",
+ "legion-prefab",
  "log",
  "palette",
  "rendy",
@@ -282,7 +286,7 @@ dependencies = [
 [[package]]
 name = "amethyst_utils"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_assets",
  "amethyst_core",
@@ -299,7 +303,7 @@ dependencies = [
 [[package]]
 name = "amethyst_window"
 version = "0.15.3"
-source = "git+https://github.com/amethyst/amethyst.git?branch=main#8d5db8a3904f9b9ecdcb6386f3f8e76a9b30eb84"
+source = "git+https://github.com/amethyst/amethyst.git?rev=e19a5bd#e19a5bd78957d1eec096c9820e09686f4ce4ecb9"
 dependencies = [
  "amethyst_config",
  "amethyst_core",
@@ -433,6 +437,12 @@ dependencies = [
  "object",
  "rustc-demangle",
 ]
+
+[[package]]
+name = "base64"
+version = "0.12.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3441f0f7b02788e948e47f457ca01f1d7e6d92c693bc132c22b087d3141c03ff"
 
 [[package]]
 name = "base64"
@@ -1652,6 +1662,40 @@ dependencies = [
 ]
 
 [[package]]
+name = "gltf"
+version = "0.15.2"
+source = "git+https://github.com/gltf-rs/gltf.git?rev=4298aac70336ae0413312a61344badbf67fbcbde#4298aac70336ae0413312a61344badbf67fbcbde"
+dependencies = [
+ "base64 0.12.3",
+ "byteorder",
+ "gltf-json",
+ "image 0.23.13",
+ "lazy_static",
+]
+
+[[package]]
+name = "gltf-derive"
+version = "0.15.2"
+source = "git+https://github.com/gltf-rs/gltf.git?rev=4298aac70336ae0413312a61344badbf67fbcbde#4298aac70336ae0413312a61344badbf67fbcbde"
+dependencies = [
+ "inflections",
+ "proc-macro2 1.0.24",
+ "quote 1.0.9",
+ "syn 1.0.60",
+]
+
+[[package]]
+name = "gltf-json"
+version = "0.15.2"
+source = "git+https://github.com/gltf-rs/gltf.git?rev=4298aac70336ae0413312a61344badbf67fbcbde#4298aac70336ae0413312a61344badbf67fbcbde"
+dependencies = [
+ "gltf-derive",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
 name = "hashbrown"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1742,6 +1786,12 @@ checksum = "1cdb29978cc5797bd8dcc8e5bf7de604891df2a8dc576973d71a281e916db2ff"
 dependencies = [
  "adler32",
 ]
+
+[[package]]
+name = "inflections"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a257582fdcde896fd96463bf2d40eefea0580021c0712a0e2b028b60b47a837a"
 
 [[package]]
 name = "inotify"
@@ -3359,7 +3409,7 @@ version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "064ea8613fb712a19faf920022ec8ddf134984f100090764a4e1d768f3827f1f"
 dependencies = [
- "base64",
+ "base64 0.13.0",
  "bitflags",
  "serde",
 ]
