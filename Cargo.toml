@@ -11,6 +11,6 @@ serde = "*"
 
 [dependencies.amethyst]
 git = "https://github.com/amethyst/amethyst.git"
-branch="main"
+rev = "e19a5bd"
 default-features = false
 features = ["audio", "animation", "vulkan", "renderer", "parallel", "utils", "no-slow-safety-checks"]
